@@ -1,0 +1,27 @@
+# Run artifacts: regenerable, may contain model output.
+# Commit deliberately (git add -f) if you want a published run to be reproducible.
+responses.jsonl
+report.json
+human_grades.jsonl
+human_grades_*.jsonl
+comparison.json
+grading_sheet.csv
+blind_map.json
+
+# Secrets: never commit
+.env
+.env.*
+*.key
+*.pem
+secrets.*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db

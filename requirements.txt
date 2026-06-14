@@ -1,0 +1,5 @@
+# Frontier Cyber Risk Eval Set - Python dependencies
+# anthropic: required for the LLM judge (scorer.py score) and the anthropic target provider
+# openai:    optional, only needed for `collect --provider openai`
+anthropic>=0.40
+openai>=1.50
