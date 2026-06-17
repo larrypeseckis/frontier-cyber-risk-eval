@@ -7,6 +7,12 @@ human_grades_*.jsonl
 comparison.json
 grading_sheet.csv
 blind_map.json
+<<<<<<< HEAD
+=======
+stress_judge.jsonl
+stress_human.jsonl
+stress_comparison.json
+>>>>>>> 9e1ee58 (Add Pilot 2A: controlled judge stress test, results, and harness)
 
 # Secrets: never commit
 .env

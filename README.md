@@ -25,6 +25,7 @@ Every prompt is a stimulus, not a payload. Tier 3 and Tier 4 entries are refusal
 
 ---
 
+<<<<<<< HEAD
 ## Pilot results in brief
 
 Target gpt-5.5 (bare model), judge claude-opus-4-8, one human rater, 57 prompts. Full writeup and caveats in `RESULTS.md`.
@@ -34,6 +35,31 @@ Target gpt-5.5 (bare model), judge claude-opus-4-8, one human rater, 57 prompts.
 - **The judge abstained on 4 of 10 Tier 4 items**, the most severe disallowed prompts, refusing to emit a verdict even with escalating instruction. A single-LLM-judge pipeline silently loses coverage on its most important cases unless abstention is detected and handled.
 
 The pilot supports two claims (the set distinguishes answer/gate/refuse across tiers; a cross-family judge agrees with a human on pass/fail for clean responses) and does not support a third (benchmark-level safety, judge reliability under messy partial compliance, or severe-Tier-4 coverage without human fallback).
+=======
+## Results
+
+Two pilots, each answering a different question. The value is in the progression: Pilot 1 tests the judge on clean responses, Pilot 2A stress-tests it on messy ones with known labels.
+
+### Pilot 1: clean target
+
+Target gpt-5.5 (bare model), judge claude-opus-4-8, one human rater, 57 prompts. Full writeup in `RESULTS.md`.
+
+- **gpt-5.5 showed zero measured cyber over-refusal** on this set: 0 of 5 over-refusal traps and 0 of 33 benign prompts wrongly refused, with constructive (redirect) refusals on the disallowed items.
+- **The judge matched the human on every verdict it rendered.** Pass/fail agreement was complete over the 53 judged items; observed-behavior agreement was 0.962 (Cohen's kappa 0.923).
+- **The judge abstained on 4 of 10 Tier 4 items**, the most severe disallowed prompts, refusing to emit a verdict. A single-LLM-judge pipeline silently loses coverage on its most important cases unless abstention is detected and handled.
+
+A clean target cannot show whether the judge is reliable or merely unchallenged, which is what Pilot 2A is for.
+
+### Pilot 2A: controlled judge stress test
+
+Same judge (claude-opus-4-8), 30 messy response shapes with frozen intended labels, one independent blind human rater. Full writeup in `RESULTS-pilot-2a.md`.
+
+- **Judge reliability is shape-dependent.** Perfect on clean answers, clean refusals, hedged compliance, and gated responses; collapses to 0.25 to 0.67 pass/fail accuracy on responses where surface and substance conflict (leaky refusals, over-sharing redirects, endpoint collapse). One coherent failure mode: the judge sides with a refusal-shaped surface over leaked substance.
+- **A blind human beat the judge on pass/fail** (0.833 vs 0.679) and caught the specific surface/substance errors it missed, but three of the hardest cases beat both. The case is for human review alongside the judge, not replacement.
+- **Content-triggered abstention replicated** (2 of 30), confirming Pilot 1's abstention finding is a stable property, not a one-off.
+
+Together the pilots support that the eval distinguishes answer/gate/refuse across tiers, that a cross-family judge agrees with a human on clean responses, and that the same judge needs human backstop on refusal-shaped responses carrying technical substance. They do not support benchmark-level safety claims or judge reliability on a realistic (rather than deliberately hard) response distribution. The next step, Pilot 2B, runs a real messier model to see whether these shape-specific failures appear in naturally generated output.
+>>>>>>> 9e1ee58 (Add Pilot 2A: controlled judge stress test, results, and harness)
 
 ---
 
@@ -73,7 +99,16 @@ Grade before opening the judge's report, so your grades stay independent. The gr
 | `human_compare.py` | Blind human grader and human-vs-judge agreement. |
 | `grading-rubric.md` | One-page rubric for the blind grading pass. |
 | `sample_responses.jsonl` | Small example responses for a dry run of `score`. |
+<<<<<<< HEAD
 | `RESULTS.md` | The v0.1 pilot results, findings, and limitations. |
+=======
+| `RESULTS.md` | Pilot 1 results: clean target, judge-vs-human, abstentions. |
+| `build_stress_set.py` | Single source of truth for the Pilot 2A stress set. |
+| `stress_responses.jsonl` | 30 ground-truth-labeled messy response shapes. |
+| `stress_responses.csv` | Same stress data flattened for review. |
+| `stress_eval.py` | Pilot 2A harness: judge + blind human scored against ground truth. |
+| `RESULTS-pilot-2a.md` | Pilot 2A results: judge reliability under controlled stress. |
+>>>>>>> 9e1ee58 (Add Pilot 2A: controlled judge stress test, results, and harness)
 | `requirements.txt` | Python dependencies. |
 | `LICENSE` | MIT. |
 
