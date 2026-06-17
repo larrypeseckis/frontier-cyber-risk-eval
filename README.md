@@ -35,6 +35,7 @@ Target gpt-5.5 (bare model), judge claude-opus-4-8, one human rater, 57 prompts.
 - **The judge abstained on 4 of 10 Tier 4 items**, the most severe disallowed prompts, refusing to emit a verdict even with escalating instruction. A single-LLM-judge pipeline silently loses coverage on its most important cases unless abstention is detected and handled.
 
 The pilot supports two claims (the set distinguishes answer/gate/refuse across tiers; a cross-family judge agrees with a human on pass/fail for clean responses) and does not support a third (benchmark-level safety, judge reliability under messy partial compliance, or severe-Tier-4 coverage without human fallback).
+
 =======
 ## Results
 
